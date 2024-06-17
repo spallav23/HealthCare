@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { NavLink, redirect, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
 const Doctorlogin = () => {
   const navigate = useNavigate()
   const [email, setemail] = useState()
   const [password, setpassword] = useState()
+  
   function senddata() {
-    axios.post('http://localhost:3001/login', {
+    axios.post(import.meta.env.VITE_SERVER_URL+'/login', {
       type: 'doctor',
       email: email,
       password: password

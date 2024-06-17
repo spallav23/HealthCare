@@ -9,7 +9,7 @@ const Singup = () => {
     const [password, setpassword] = useState()
     function senddata(){
             console.log(name,email,password);
-            axios.post('http://localhost:3001/register',{
+            axios.post(import.meta.env.VITE_SERVER_URL+'/register',{
                 type:'user',
                 name:name,
                 email:email,

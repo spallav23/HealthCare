@@ -95,6 +95,7 @@ const router = createBrowserRouter([
 )
 
 axios.defaults.withCredentials =true;
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   
 

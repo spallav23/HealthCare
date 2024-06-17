@@ -4,19 +4,18 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const navigate = useNavigate();
-  axios.get('http://localhost:3001/').then((e) => {
+  axios.get(import.meta.env.VITE_SERVER_URL).then((e) => {
       if (e.data.valid) {
         document.getElementById('login').innerHTML = e.data.name;
       }
     })
 
   function logclick(){
-    axios.get('http://localhost:3001/').then((e) => {
+    axios.get(import.meta.env.VITE_SERVER_URL).then((e) => {
       if (e.data.valid) {
         const yn = confirm("do you want to log out ?");
         if (yn) {
-          axios.post('http://localhost:3001/').then((e) => {
-            console.log(e.data);
+          axios.post(import.meta.env.VITE_SERVER_URL,{e}).then(() => {
             document.getElementById('login').innerHTML = 'Log in';
             navigate('/');
           })
@@ -30,13 +29,11 @@ const Navbar = () => {
     })
   }
   function hendleclick() {
-    axios.get('http://localhost:3001/').then((e) => {
+    axios.get(import.meta.env.VITE_SERVER_URL).then((e) => {
       if (e.data.doctor) {
-        console.log("doctor");
         navigate('/doctordashboard')
       }
       else {
-        console.log("not");
         navigate('/doctorlogin')
       }
     })

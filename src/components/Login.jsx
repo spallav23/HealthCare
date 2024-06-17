@@ -10,15 +10,16 @@ const Login = () => {
     const [password, setpassword] = useState()
     const [email, setemail] = useState()
     function senddata(){
-        axios.post('http://localhost:3001/login',{
+
+        axios.post(import.meta.env.VITE_SERVER_URL+'/login',{
+        
           type : 'user',
           email : email,
           password: password
-        }).then((Response) =>{
+        }).then((Response) =>{ 
           if(Response.status == 202){
             navigate('/');
         
-            console.log("go to next page"); 
           }
           else{
             console.log("not valid");

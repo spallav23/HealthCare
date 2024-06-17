@@ -1,21 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { io } from 'socket.io-client';
+import { data } from 'autoprefixer';
 
 const Doctordashboard = () => {
+  const socket = io.connect(import.meta.env.VITE_SERVER_URL)
   const [appointments, setAppointments] = useState([]);
   const [messages, setMessages] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get('http://localhost:3001/').then((e) => {
+    axios.get(import.meta.env.VITE_SERVER_URL).then((e) => {
     
       if (!e.data.doctor) {
         alert("please login first ");
         navigate('/doctorlogin')
       }
+      else{
+        socket.emit("email",{messages:e.data.email})
+
+      }
+
     })
   }, [])
+  useEffect(() => {
+    socket.on("meet",async(e)=>{
+      const mc =await e;
+      console.log(mc);
+      window.location.href =await e.meetingCode;
+    })
+  }, [socket])
+  
   useEffect(() => {
     // Fetch the doctor's updates from your API or backend service
     const fetchDashboardData = async () => {
@@ -33,7 +49,7 @@ const Doctordashboard = () => {
       setNotifications(notificationsData);
     };
 
-    fetchDashboardData();
+    // fetchDashboardData();
   }, []);
 
   return (

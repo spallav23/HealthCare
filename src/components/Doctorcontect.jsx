@@ -1,11 +1,29 @@
 
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Doctorcontect = () => {
+  const location = useLocation();
+  const data= location.state
+  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
   const [videoCall, setVideoCall] = useState(false);
-
+  const [email, setemail] = useState()
+  useEffect(() => {
+    axios.get(import.meta.env.VITE_SERVER_URL).then(async(e)=>{
+       
+        if(!e.data.valid){
+            alert("please login first ");
+            navigate('/login')
+        }
+        else{
+          setemail(await e.data.email)
+        }
+    })
+}, [])
   const handleSendMessage = () => {
     if (message.trim()) {
       setChat([...chat, { user: 'user', text: message }]);
@@ -15,8 +33,12 @@ const Doctorcontect = () => {
   };
 
   const startVideoCall = () => {
+    
+    axios.post(import.meta.env.VITE_SERVER_URL+'/meeting',{id:data.info,email:email}).then(async(e)=>{
+      const a = e.data
+      window.location.href =await a ;
+    })
     setVideoCall(true);
-    // Logic to start the video call
   };
 
   return (

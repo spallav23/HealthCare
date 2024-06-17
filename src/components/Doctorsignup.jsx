@@ -15,7 +15,7 @@ const Doctorsignup = () => {
   function senddata() {
     console.log(name, email, password);
 
-    axios.post('http://localhost:3001/register', {
+    axios.post(import.meta.env.VITE_SERVER_URL+'/register', {
       type: 'doctor',
       name: name,
       email: email,
