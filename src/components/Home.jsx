@@ -6,7 +6,7 @@ const Home = () => {
    
     
   return (
-    <div class=" bg-slate-300 m-0">
+    <div class=" bg-slate-200 m-0">
       <main >
         <div class="first px-28 py-24 flex">
             <div>

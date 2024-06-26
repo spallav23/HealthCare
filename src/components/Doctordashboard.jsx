@@ -5,33 +5,41 @@ import { io } from 'socket.io-client';
 import { data } from 'autoprefixer';
 
 const Doctordashboard = () => {
-  const socket = io.connect(import.meta.env.VITE_SERVER_URL)
   const [appointments, setAppointments] = useState([]);
   const [messages, setMessages] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
+  const [socket, setsocket] = useState(io.connect(import.meta.env.VITE_SERVER_URL))
   useEffect(() => {
     axios.get(import.meta.env.VITE_SERVER_URL).then((e) => {
-    
+
       if (!e.data.doctor) {
         alert("please login first ");
         navigate('/doctorlogin')
       }
-      else{
-        socket.emit("email",{messages:e.data.email})
+      else {
+        socket.emit("email", { messages: e.data.email })
 
       }
-
+      
     })
   }, [])
   useEffect(() => {
-    socket.on("meet",async(e)=>{
-      const mc =await e;
+    socket.on("message", async (e) => {
+      alert("hello");
+      setMessages(e);
+    })
+    socket.on("meet", async (e) => {
+      const mc = await e;
       console.log(mc);
-      window.location.href =await e.meetingCode;
+      window.location.href = await e.meetingCode;
     })
   }, [socket])
-  
+
+
+
+
+
   useEffect(() => {
     // Fetch the doctor's updates from your API or backend service
     const fetchDashboardData = async () => {
@@ -47,10 +55,14 @@ const Doctordashboard = () => {
       setAppointments(appointmentsData);
       setMessages(messagesData);
       setNotifications(notificationsData);
+
+
     };
 
     // fetchDashboardData();
   }, []);
+
+
 
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
@@ -73,9 +85,9 @@ const Doctordashboard = () => {
             {messages.map((message) => (
               <div key={message.id} className="mb-2">
                 <p className="text-gray-700">
-                  <strong>{message.senderName}:</strong> {message.text}
+                  <strong>{message.name}:</strong> {message.message}
                 </p>
-                <p className="text-gray-500 text-sm">{message.date}</p>
+                {/* <p className="text-gray-500 text-sm">{message.date}</p> */}
               </div>
             ))}
           </div>

@@ -43,7 +43,7 @@ const Navbar = () => {
   return (
     <div>
       <header >
-        <nav className="flex p-2 bg-slate-700 text-gray-300 justify-around items-center flex-col  lg:flex-row m-0">
+        <nav className="flex p-2 bg-slate-900 text-gray-300 justify-around items-center flex-col  lg:flex-row m-0">
           <img className="logo " src="src/assets/img/stethoscope-icon-stethoscope-icon-2316460.png" width={40} alt="" />
 
           <ul className="flex list-none gap-10 flex-col lg:flex-row">

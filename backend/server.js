@@ -47,7 +47,7 @@ let a;
 const { MongoClient, ObjectId } = require("mongodb");
 const { log } = require('console')
 const { fail } = require('assert')
-const uri = "mongodb+srv://spp23102003:@cluster0.vhincym.mongodb.net/";
+const uri = "mongodb+srv://spp23102003:spp23102003@cluster0.vhincym.mongodb.net/";
 const client = new MongoClient(uri);
 
 const database = client.db("Healthcare");

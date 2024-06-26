@@ -3,8 +3,10 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { io } from 'socket.io-client';
 
 const Doctorcontect = () => {
+  const socket = io.connect(import.meta.env.VITE_SERVER_URL)
   const location = useLocation();
   const data= location.state
   const navigate = useNavigate();
@@ -12,6 +14,7 @@ const Doctorcontect = () => {
   const [chat, setChat] = useState([]);
   const [videoCall, setVideoCall] = useState(false);
   const [email, setemail] = useState()
+  const [name, setname] = useState('')
   useEffect(() => {
     axios.get(import.meta.env.VITE_SERVER_URL).then(async(e)=>{
        
@@ -21,6 +24,7 @@ const Doctorcontect = () => {
         }
         else{
           setemail(await e.data.email)
+          setname(await e.data.name)
         }
     })
 }, [])
@@ -28,8 +32,9 @@ const Doctorcontect = () => {
     if (message.trim()) {
       setChat([...chat, { user: 'user', text: message }]);
       setMessage('');
-      // Here you can add the logic to send the message to the doctor
+    
     }
+    axios.post(import.meta.env.VITE_SERVER_URL+'/message',{message:message,did:data.info,mname:name})
   };
 
   const startVideoCall = () => {
