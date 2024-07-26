@@ -34,25 +34,25 @@ Make sure you have the following installed:
 
 ### Installation
 
-1. Clone the repository:
+1. #### Clone the repository:
 
    ```bash
    git clone https://github.com/your-username/healthcare24-7.git
    cd healthcare24-7
-  
-2. Install the dependencies:
+
+2. #### Install the dependencies:
 
    ```bash
    npm install
    
-3. Change Variables :
+3. ####  Change Variables :
 
--add your database(Mongodb) url in backend/servar.js.
--create your Api key for google meet and put token file in backend.
--change veriable in src/.env if needed.
+- add your database(Mongodb) url in backend/servar.js.
+- create your Api key for google meet and put token file in backend.
+- change veriable in src/.env if needed.
    
 
-4. To start the development server, run:
+4. ####  To start the development server, run:
 
    ```bash
    npm run dev
