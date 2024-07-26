@@ -1,4 +1,4 @@
-# Healthcare24/7 at Home - Doctor Dashboard
+# Healthcare24/7 at Home 
 
 ## Overview
 
